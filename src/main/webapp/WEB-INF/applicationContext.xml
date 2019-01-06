@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <!-- 数据源 -->
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://lkxed.cn:3306/gushiwen"/>
+    <property name="username" value="gushiwen"/>
+    <property name="password" value="gushiwen"/>
+  </bean>
+
+  <!-- SessionFactory -->
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+      </props>
+    </property>
+    <property name="mappingResources">
+      <list>
+        <value>cn/lkxed/entity/Tag.hbm.xml</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- BaseHibernateDAO -->
+  <bean id="baseDAO" class="cn.lkxed.dao.BaseHibernateDAO">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <!-- DAO -->
+  <bean id="tagDAO" class="cn.lkxed.dao.TagDAO" parent="baseDAO" />
+
+  <!-- Service -->
+  <bean id="tagService" class="cn.lkxed.service.TagService">
+    <property name="tagDAO" ref="tagDAO" />
+  </bean>
+
+  <!-- Action -->
+  <bean id="tagAction" class="cn.lkxed.action.TagAction" scope="prototype">
+    <property name="tagService" ref="tagService" />
+  </bean>
+</beans>

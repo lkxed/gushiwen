@@ -32,7 +32,7 @@
     </property>
     <property name="mappingResources">
       <list>
-        <value>cn/lkxed/entity/Tag.hbm.xml</value>
+        <value>hbm/Tag.hbm.xml</value>
       </list>
     </property>
   </bean>

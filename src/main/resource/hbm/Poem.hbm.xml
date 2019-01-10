@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-  <class name="cn.lkxed.entity.Poem" table="poem" catalog="gushiwen">
+  <class name="cn.lkxed.po.Poem" table="poem" catalog="gushiwen">
     <id name="id" type="string">
       <column name="id"/>
     </id>

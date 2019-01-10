@@ -1,4 +1,4 @@
-package cn.lkxed.entity;
+package cn.lkxed.po;
 
 
 public class Author {

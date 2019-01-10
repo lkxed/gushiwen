@@ -17,7 +17,7 @@
   <!-- 数据源 -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://lkxed.cn:3306/gushiwen"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/gushiwen?serverTimezone=Asia/Shanghai"/>
     <property name="username" value="gushiwen"/>
     <property name="password" value="gushiwen"/>
   </bean>

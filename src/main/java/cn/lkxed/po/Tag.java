@@ -1,7 +1,7 @@
-package cn.lkxed.entity;
+package cn.lkxed.po;
 
 
-public class Dynasty {
+public class Tag {
 
   private String name;
 

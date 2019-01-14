@@ -6,7 +6,25 @@
 <hibernate-mapping>
   <class name="cn.lkxed.po.Poem" table="poem" catalog="gushiwen">
     <id name="id" type="string">
-      <column name="id"/>
+      <column name="id" length="32"/>
     </id>
+    <property name="title" type="string">
+      <column name="title" length="50"/>
+    </property>
+    <property name="authorId" type="string">
+      <column name="author_id" length="32"/>
+    </property>
+    <property name="content" type="string">
+      <column name="content"/>
+    </property>
+    <property name="translation" type="string">
+      <column name="translation"/>
+    </property>
+    <property name="annotation" type="string">
+      <column name="annotation"/>
+    </property>
+    <property name="tags" type="string">
+      <column name="tags" length="100"/>
+    </property>
   </class>
 </hibernate-mapping>

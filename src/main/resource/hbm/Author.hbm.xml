@@ -6,7 +6,19 @@
 <hibernate-mapping>
   <class name="cn.lkxed.po.Author" table="author" catalog="gushiwen">
     <id name="id" type="string">
-      <column name="id"/>
+      <column name="id" length="32"/>
     </id>
+    <property name="name" type="string">
+      <column name="name" length="20"/>
+    </property>
+    <property name="brief" type="string">
+      <column name="brief" length="1000"/>
+    </property>
+    <property name="portraitUrl" type="string">
+      <column name="portrait_url" length="100"/>
+    </property>
+    <property name="dynasty" type="string">
+      <column name="dynasty" length="6"/>
+    </property>
   </class>
 </hibernate-mapping>

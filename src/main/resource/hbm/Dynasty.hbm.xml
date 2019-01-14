@@ -6,7 +6,7 @@
 <hibernate-mapping>
   <class name="cn.lkxed.po.Dynasty" table="dynasty" catalog="gushiwen">
     <id name="name" type="string">
-      <column name="name"/>
+      <column name="name" length="3"/>
     </id>
   </class>
 </hibernate-mapping>

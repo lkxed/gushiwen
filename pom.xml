@@ -98,6 +98,11 @@
       <artifactId>struts2-core</artifactId>
       <version>${struts2.version}</version>
     </dependency>
+    <dependency><!-- 核心 -->
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-json-plugin</artifactId>
+      <version>${struts2.version}</version>
+    </dependency>
     <dependency><!-- 集成 junit 单元测试 -->
       <groupId>org.apache.struts</groupId>
       <artifactId>struts2-junit-plugin</artifactId>

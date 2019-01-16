@@ -2,11 +2,10 @@ package cn.lkxed.service;
 
 import cn.lkxed.dao.TagDAO;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 public class TagService implements ITagService {
-    private TagDAO tagDAO = null;
+    private TagDAO tagDAO;
 
     public void setTagDAO(TagDAO tagDAO) {
         this.tagDAO = tagDAO;
@@ -14,14 +13,16 @@ public class TagService implements ITagService {
 
     @Override
     public List findAllTags() {
-        String hql = "from Tag";
-        return tagDAO.findByHql(hql);
+        return tagDAO.findAll();
     }
 
     @Override
     public boolean isExisted(String name) {
-        String hql = "from Tag where name = {0}";
-        hql = MessageFormat.format(hql, name);
-        return tagDAO.findByHql(hql).size() > 0;
+        return tagDAO.findAll().size() > 0;
+    }
+
+    @Override
+    public List findPage(int pageNum, int pageSize) {
+        return tagDAO.findPage(pageNum, pageSize);
     }
 }

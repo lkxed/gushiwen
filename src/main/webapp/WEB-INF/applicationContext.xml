@@ -28,30 +28,45 @@
     <property name="hibernateProperties">
       <props>
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hbm2ddl.auto">update</prop>
       </props>
     </property>
     <property name="mappingResources">
       <list>
         <value>hbm/Tag.hbm.xml</value>
+        <value>hbm/Poem.hbm.xml</value>
       </list>
     </property>
   </bean>
 
-  <!-- BaseHibernateDAO -->
-  <bean id="baseDAO" class="cn.lkxed.dao.BaseHibernateDAO">
+  <!-- hibernate模板 -->
+  <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
 
   <!-- DAO -->
-  <bean id="tagDAO" class="cn.lkxed.dao.TagDAO" parent="baseDAO" />
+  <bean id="tagDAO" class="cn.lkxed.dao.TagDAO">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
+  <bean id="poemDAO" class="cn.lkxed.dao.PoemDAO">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
 
   <!-- Service -->
   <bean id="tagService" class="cn.lkxed.service.TagService">
     <property name="tagDAO" ref="tagDAO" />
   </bean>
+  <bean id="poemService" class="cn.lkxed.service.PoemService">
+    <property name="poemDAO" ref="poemDAO" />
+  </bean>
 
   <!-- Action -->
   <bean id="tagAction" class="cn.lkxed.action.TagAction" scope="prototype">
     <property name="tagService" ref="tagService" />
+  </bean>
+  <bean id="poemAction" class="cn.lkxed.action.PoemAction" scope="prototype">
+    <property name="poemService" ref="poemService" />
   </bean>
 </beans>

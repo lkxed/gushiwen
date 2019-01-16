@@ -1,13 +1,14 @@
 package cn.lkxed.action;
 
 import cn.lkxed.service.TagService;
+import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.List;
 
-public class TagAction {
+public class TagAction extends ActionSupport {
     private List tags;
 
-    TagService tagService = null;
+    TagService tagService;
 
     public TagService getTagService() {
         return tagService;
@@ -26,11 +27,11 @@ public class TagAction {
     }
 
     public String execute() {
-        List tags = tagService.findAllTags();
+        List tags = tagService.findPage(1, 10);
         if (tags != null && tags.size() > 0) {
             this.tags = tags;
-            return "success";
+            return SUCCESS;
         }
-        return "fail";
+        return ERROR;
     }
 }

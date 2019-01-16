@@ -1,28 +1,21 @@
 package cn.lkxed.dao;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import cn.lkxed.po.Tag;
+import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
 import java.util.List;
 
-public class TagDAO extends BaseHibernateDAO implements ITagDAO {
+public class TagDAO extends HibernateDaoSupport implements ITagDAO {
+    private DetachedCriteria criteria = DetachedCriteria.forClass(Tag.class);
     @Override
-    public List findByHql(String hql) {
-        Transaction transaction = null;
-        Session session = null;
-        try {
-            session = getSession();
-            transaction = session.beginTransaction();
-            Query queryObject = session.createQuery(hql);
-            transaction.commit();
-            return queryObject.list();
-        } catch (RuntimeException e) {
-            if (transaction != null)
-                transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return null;
+    public List findAll() {
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    @Override
+    public List findPage(int pageNum, int pageSize) {
+        int begin = (pageNum - 1) * pageSize;
+        return getHibernateTemplate().findByCriteria(criteria, begin, pageSize);
     }
 }

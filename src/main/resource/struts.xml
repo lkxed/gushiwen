@@ -3,10 +3,16 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
-  <package name="strutsBean" extends="struts-default" namespace="/">
-    <action name="tag" class="tagAction">
-      <result name="success">/tag.jsp</result>
-      <result name="fail">/index.jsp</result>
+  <package name="strutsBean" extends="json-default" namespace="/">
+    <action name="tags" class="tagAction">
+      <result name="success" type="json">
+        <param name="includeProperties">tags.*</param>
+      </result>
+    </action>
+    <action name="poems" class="poemAction">
+      <result name="success" type="json">
+        <param name="includeProperties">poems.*</param>
+      </result>
     </action>
   </package>
 </struts>

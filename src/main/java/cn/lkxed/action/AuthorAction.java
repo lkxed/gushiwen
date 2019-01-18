@@ -1,6 +1,6 @@
 package cn.lkxed.action;
 
-import cn.lkxed.service.PoemService;
+import cn.lkxed.service.AuthorService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.dispatcher.HttpParameters;
@@ -8,36 +8,35 @@ import org.apache.struts2.dispatcher.Parameter;
 
 import java.util.List;
 
-public class PoemAction extends ActionSupport {
-    private List poems;
+public class AuthorAction extends ActionSupport {
+    private List authors;
+    private AuthorService authorService;
 
-    private PoemService poemService;
-
-    public List getPoems() {
-        return poems;
+    public List getAuthors() {
+        return authors;
     }
 
-    public void setPoems(List poems) {
-        this.poems = poems;
+    public void setAuthors(List authors) {
+        this.authors = authors;
     }
 
-    public PoemService getPoemService() {
-        return poemService;
+    public AuthorService getAuthorService() {
+        return authorService;
     }
 
-    public void setPoemService(PoemService poemService) {
-        this.poemService = poemService;
+    public void setAuthorService(AuthorService authorService) {
+        this.authorService = authorService;
     }
 
     public String execute() {
         try {
             HttpParameters parameters = ActionContext.getContext().getParameters();
             if (parameters.size() == 0) { // 请求不带参数
-                this.poems = poemService.findPage(1, 10);
+                this.authors = authorService.findPage(1, 10);
             } else if (parameters.size() == 1) { // 请求带一个参数
                 Parameter parameter = parameters.entrySet().iterator().next().getValue();
-                if (parameter.getName().equalsIgnoreCase("title")) { // 根据标题查找
-                    this.poems = poemService.findByTitle(parameter.getValue());
+                if (parameter.getName().equalsIgnoreCase("name")) { // 根据名字查找
+                    this.authors = authorService.findByName(parameter.getValue());
                 } else { // 参数无效
                     return ERROR;
                 }

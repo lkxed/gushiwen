@@ -2,6 +2,36 @@
  * Globals
  */
 
+
+/*
+ * 登录表单
+ */
+#loginForm {
+  position: relative;
+  display: inline-block;
+  margin: 10px 10px 10px 375px;
+}
+
+#loginForm > input[type=text], input[type=password] {
+  width: 130px;
+}
+#loginForm > input[type=submit] {
+  background-color: greenyellow;
+  border: none;
+  cursor: pointer;
+  margin-left: 3px;
+}
+
+#registerBtn {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  background-color: #428bca;
+}
+
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
   color: #555;

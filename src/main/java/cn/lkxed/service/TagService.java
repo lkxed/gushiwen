@@ -12,7 +12,7 @@ public class TagService implements ITagService {
     }
 
     @Override
-    public List findAllTags() {
+    public List findAll() {
         return tagDAO.findAll();
     }
 

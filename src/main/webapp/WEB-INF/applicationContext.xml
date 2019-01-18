@@ -37,11 +37,12 @@
       <list>
         <value>hbm/Tag.hbm.xml</value>
         <value>hbm/Poem.hbm.xml</value>
+        <value>hbm/Author.hbm.xml</value>
       </list>
     </property>
   </bean>
 
-  <!-- hibernate模板 -->
+  <!-- hibernate 模板 -->
   <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
     <property name="sessionFactory" ref="sessionFactory" />
   </bean>
@@ -53,6 +54,9 @@
   <bean id="poemDAO" class="cn.lkxed.dao.PoemDAO">
     <property name="hibernateTemplate" ref="hibernateTemplate" />
   </bean>
+  <bean id="authorDAO" class="cn.lkxed.dao.AuthorDAO">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
 
   <!-- Service -->
   <bean id="tagService" class="cn.lkxed.service.TagService">
@@ -61,6 +65,9 @@
   <bean id="poemService" class="cn.lkxed.service.PoemService">
     <property name="poemDAO" ref="poemDAO" />
   </bean>
+  <bean id="authorService" class="cn.lkxed.service.AuthorService">
+    <property name="authorDAO" ref="authorDAO" />
+  </bean>
 
   <!-- Action -->
   <bean id="tagAction" class="cn.lkxed.action.TagAction" scope="prototype">
@@ -68,5 +75,8 @@
   </bean>
   <bean id="poemAction" class="cn.lkxed.action.PoemAction" scope="prototype">
     <property name="poemService" ref="poemService" />
+  </bean>
+  <bean id="authorAction" class="cn.lkxed.action.AuthorAction" scope="prototype">
+    <property name="authorService" ref="authorService" />
   </bean>
 </beans>

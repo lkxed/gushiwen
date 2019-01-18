@@ -4,15 +4,26 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
   <package name="strutsBean" extends="json-default" namespace="/">
-    <action name="tags" class="tagAction">
+    <default-action-ref name="poems"/>
+    <!-- 返回 JSON 格式数据 -->
+    <action name="tags-json" class="tagAction">
       <result name="success" type="json">
         <param name="includeProperties">tags.*</param>
       </result>
     </action>
-    <action name="poems" class="poemAction">
+    <action name="poems-json" class="poemAction">
       <result name="success" type="json">
         <param name="includeProperties">poems.*</param>
       </result>
+    </action>
+    <action name="authors-json" class="authorAction">
+      <result name="success" type="json">
+        <param name="includeProperties">authors.*</param>
+      </result>
+    </action>
+    <!-- 返回 JSP 页面 -->
+    <action name="poems" class="poemAction">
+      <result name="success">recommend.jsp</result>
     </action>
   </package>
 </struts>

@@ -12,13 +12,13 @@ public class PoemService implements IPoemService {
     }
 
     @Override
-    public List findAllPoems() {
+    public List findAll() {
         return poemDAO.findAll();
     }
 
     @Override
-    public boolean isExisted(String name) {
-        return poemDAO.findAll().size() > 0;
+    public boolean isExisted(String title) {
+        return poemDAO.findByTitle(title).size() > 0;
     }
 
     @Override

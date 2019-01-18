@@ -32,6 +32,6 @@ public class TagAction extends ActionSupport {
             this.tags = tags;
             return SUCCESS;
         }
-        return ERROR;
+        return SUCCESS;
     }
 }

@@ -89,8 +89,12 @@
 
       <nav>
         <ul class="pager">
-          <li><a href="#">Previous</a></li>
-          <li><a href="#">Next</a></li>
+          <s:if test="pageNum>1">
+            <a href="recommend?pageNum=<s:property value="pageNum-1"/>">上一页</a>
+          </s:if>
+
+          ---------------------- 第 <s:property value="pageNum" /> 页 ----------------------
+          <a href="recommend?pageNum=<s:property value="pageNum+1"/>">下一页</a>
         </ul>
       </nav>
 

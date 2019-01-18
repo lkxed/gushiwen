@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
   <package name="strutsBean" extends="json-default" namespace="/">
-    <default-action-ref name="poems"/>
+    <default-action-ref name="recommend"/>
     <!-- 返回 JSON 格式数据 -->
     <action name="tags-json" class="tagAction">
       <result name="success" type="json">
@@ -32,6 +32,9 @@
       <result name="success">recommend.jsp</result>
     </action>
     <action name="login" class="userAction" method="login">
+      <result name="success">recommend.jsp</result>
+    </action>
+    <action name="recommend" class="poemAction" method="goToPage">
       <result name="success">recommend.jsp</result>
     </action>
   </package>

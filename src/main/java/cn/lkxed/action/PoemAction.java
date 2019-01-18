@@ -9,6 +9,20 @@ import org.apache.struts2.dispatcher.Parameter;
 import java.util.List;
 
 public class PoemAction extends ActionSupport {
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public PoemService getPoemService() {
+        return poemService;
+    }
+
+    private int pageNum = 1;
+    private int pageSize = 5;
     private List poems;
 
     private PoemService poemService;
@@ -45,5 +59,18 @@ public class PoemAction extends ActionSupport {
             e.printStackTrace();
             return ERROR;
         }
+    }
+
+    public String goToPage() {
+        HttpParameters parameters = ActionContext.getContext().getParameters();
+        if (parameters.isEmpty()) {
+            this.pageNum = 1;
+        } else if(parameters.get("pageNum") !=  null){
+            this.pageNum = Integer.parseInt(parameters.get("pageNum").getValue());
+        } else {
+            return ERROR;
+        }
+        this.poems = poemService.findPage(pageNum, pageSize);
+        return SUCCESS;
     }
 }

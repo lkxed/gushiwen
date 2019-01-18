@@ -10,9 +10,6 @@ public class TagAction extends ActionSupport {
 
     TagService tagService;
 
-    public TagService getTagService() {
-        return tagService;
-    }
 
     public void setTagService(TagService tagService) {
         this.tagService = tagService;

@@ -5,7 +5,7 @@ import cn.lkxed.po.Author;
 
 import java.util.List;
 
-public class AuthorService implements IAuthorService {
+public class AuthorService {
     private AuthorDAO authorDAO;
 
     public AuthorDAO getAuthorDAO() {
@@ -16,22 +16,18 @@ public class AuthorService implements IAuthorService {
         this.authorDAO = authorDAO;
     }
 
-    @Override
     public List findAll() {
         return authorDAO.findAll();
     }
 
-    @Override
     public boolean isExisted(String name) {
         return this.findByName(name).size() > 0;
     }
 
-    @Override
     public List findPage(int pageNum, int pageSize) {
         return authorDAO.findPage(pageNum, pageSize);
     }
 
-    @Override
     public List findByName(String name) {
         Author example = new Author();
         example.setName(name);

@@ -2,17 +2,11 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
   <!-- 数据源 -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -31,6 +25,7 @@
         <prop key="hibernate.show_sql">true</prop>
         <prop key="hibernate.format_sql">true</prop>
         <prop key="hbm2ddl.auto">update</prop>
+        <prop key="hibernate.connection.autocommit">true</prop>
       </props>
     </property>
     <property name="mappingResources">
@@ -38,13 +33,17 @@
         <value>hbm/Tag.hbm.xml</value>
         <value>hbm/Poem.hbm.xml</value>
         <value>hbm/Author.hbm.xml</value>
+        <value>hbm/User.hbm.xml</value>
       </list>
     </property>
   </bean>
 
+
+
   <!-- hibernate 模板 -->
   <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
     <property name="sessionFactory" ref="sessionFactory" />
+    <property name="checkWriteOperations" value="false" />
   </bean>
 
   <!-- DAO -->
@@ -55,6 +54,9 @@
     <property name="hibernateTemplate" ref="hibernateTemplate" />
   </bean>
   <bean id="authorDAO" class="cn.lkxed.dao.AuthorDAO">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
+  <bean id="userDAO" class="cn.lkxed.dao.UserDAO">
     <property name="hibernateTemplate" ref="hibernateTemplate" />
   </bean>
 
@@ -68,6 +70,9 @@
   <bean id="authorService" class="cn.lkxed.service.AuthorService">
     <property name="authorDAO" ref="authorDAO" />
   </bean>
+  <bean id="userService" class="cn.lkxed.service.UserService">
+    <property name="userDAO" ref="userDAO" />
+  </bean>
 
   <!-- Action -->
   <bean id="tagAction" class="cn.lkxed.action.TagAction" scope="prototype">
@@ -79,4 +84,15 @@
   <bean id="authorAction" class="cn.lkxed.action.AuthorAction" scope="prototype">
     <property name="authorService" ref="authorService" />
   </bean>
+  <bean id="userAction" class="cn.lkxed.action.UserAction" scope="prototype">
+    <property name="userService" ref="userService" />
+  </bean>
+
+  <!-- transactionManager 事务管理器 -->
+  <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <!-- 事务管理注解驱动 -->
+  <tx:annotation-driven />
 </beans>

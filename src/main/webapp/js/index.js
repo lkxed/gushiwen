@@ -33,3 +33,19 @@ $('body').on('hidden.bs.modal', '.modal', function () {
     $('#registerForm').get(0).reset();
     $('span.error').remove();
 });
+
+$(function() {
+    $('#registerConfirmBtn').click(function () {
+       var username = $('#registerUsername').val();
+       var password = $('#registerPassword').val();
+       var repeat = $('#registerRepeat').val();
+       $.post('register', {username: username, password: password, repeat: repeat}, function (data) {
+          if (data.message == 'success') {
+              alert('注册成功');
+              $('#registerModal').toggle();
+          } else {
+              console.log(data);
+          }
+       });
+    });
+});

@@ -39,7 +39,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form role="form" id="registerForm">
+              <form role="form" id="registerForm" action="register" method="post">
                 <div class="form-group">
                   <label for="registerUsername" class="col-form-label">用户名</label>
                   <input type="text" class="form-control" id="registerUsername" required maxlength="12" minlength="5">
@@ -56,7 +56,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-              <button type="submit" class="btn btn-primary">注册</button>
+              <button type="button" class="btn btn-primary" id="registerConfirmBtn">注册</button>
             </div>
           </div>
         </div>

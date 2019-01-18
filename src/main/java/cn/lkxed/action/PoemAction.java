@@ -21,10 +21,6 @@ public class PoemAction extends ActionSupport {
         this.poems = poems;
     }
 
-    public PoemService getPoemService() {
-        return poemService;
-    }
-
     public void setPoemService(PoemService poemService) {
         this.poemService = poemService;
     }

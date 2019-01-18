@@ -20,10 +20,6 @@ public class AuthorAction extends ActionSupport {
         this.authors = authors;
     }
 
-    public AuthorService getAuthorService() {
-        return authorService;
-    }
-
     public void setAuthorService(AuthorService authorService) {
         this.authorService = authorService;
     }

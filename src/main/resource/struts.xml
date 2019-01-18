@@ -21,8 +21,17 @@
         <param name="includeProperties">authors.*</param>
       </result>
     </action>
+    <action name="register" class="userAction" method="register">
+      <result name="success" type="json">
+      </result>
+      <result name="error" type="json">
+      </result>
+    </action>
     <!-- 返回 JSP 页面 -->
     <action name="poems" class="poemAction">
+      <result name="success">recommend.jsp</result>
+    </action>
+    <action name="login" class="userAction" method="login">
       <result name="success">recommend.jsp</result>
     </action>
   </package>

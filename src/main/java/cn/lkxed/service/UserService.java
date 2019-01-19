@@ -25,29 +25,39 @@ public class UserService {
         ActionContext ctx = ActionContext.getContext();
         session = (Map) ctx.getSession();
         request = (Map) ctx.get("request");
-        List userList = userDAO.find(user);
+        List userList = userDAO.check(user);
         if (userList.isEmpty()) {
             return false;
         } else {
-            session.put("nowuser",user);
+            session.put("nowuser",(User)userList.get(0));
             session.put("tip",user.getUsername());
             return true;
         }
     }
 
-    public boolean register(String username, String password, String repeat) {
+    public int register(String username, String password, String repeat) {
         if (username.length() >= 5 && username.length() <= 12 && password.length() >=8 && password.length() <= 20 && repeat.equals(password)) {
-            userDAO.save(new User(username, password));
-            System.out.println("register");
-            return true;
+            User user = new User();
+            user.setUsername(username);
+            if (this.find(user) == null) {
+                user.setPassword(password);
+                userDAO.save(user);
+            }
+            else {
+                System.out.println("用户"+username+"已存在");
+                return 1;
+            }
+            System.out.println("注册成功");
+            return 0;
         }
-        System.out.println("register-error");
-        return false;
+        System.out.println("注册失败");
+        return 2;
     }
 
     public User find(User user) {
         List userList = userDAO.find(user);
-        if (userList.isEmpty()) {
+        System.out.println("size"+userList.size());
+        if (userList.isEmpty() || userList == null) {
             return null;
         } else {
             return (User)userList.get(0);

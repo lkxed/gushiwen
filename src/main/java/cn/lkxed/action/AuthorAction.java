@@ -1,5 +1,6 @@
 package cn.lkxed.action;
 
+import cn.lkxed.po.Dynasty;
 import cn.lkxed.service.AuthorService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -12,6 +13,16 @@ import java.util.List;
 public class AuthorAction extends ActionSupport {
     private List authors;
     private Author author;
+    private String dynasty;
+
+    public String getDynasty() {
+        return dynasty;
+    }
+
+    public void setDynasty(String dynasty) {
+        this.dynasty = dynasty;
+    }
+
     private AuthorService authorService;
     private int pageNum = 1;
     private int pageSize = 5;
@@ -99,5 +110,22 @@ public class AuthorAction extends ActionSupport {
         return SUCCESS;
     }
 
-
+    public String dynastyAuthor() {
+        HttpParameters parameters = ActionContext.getContext().getParameters();
+        try {
+            this.dynasty = parameters.get("dynasty").getValue();
+            if (parameters.size() > 1) {
+                this.pageNum = Integer.parseInt(parameters.get("pageNum").getValue());
+            } else {
+                this.pageNum = 1;
+            }
+            Author author = new Author();
+            author.setDynasty(dynasty);
+            this.authors = authorService.findDynastyAuthorPage(author, this.pageNum, 5);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
 }

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -10,7 +10,7 @@
   <!-- 自定义 CSS 样式表 -->
   <link rel="stylesheet" type="text/css" href="css/index.css"/>
   <!-- Bootstrap -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" charset="utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" charset="utf-8" />
 </head>
 <body>
 
@@ -20,13 +20,12 @@
       <a class="poem-nav-item" href="./poems">推荐</a>
       <a class="poem-nav-item" href="./poemjump">诗文</a>
       <a class="poem-nav-item" href="./jump">作者</a>
-      <a class="poem-nav-item" href="#">收藏</a>
+      <a class="poem-nav-item active" href="#">收藏</a>
       <a class="poem-nav-item" href="./jumpuser">发表</a>
 
       <button id="registerBtn" data-toggle="modal" data-target="#registerModal">注册</button>
       <!-- 注册弹框 -->
-      <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalTitle"
-           aria-hidden="true">
+      <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -43,8 +42,7 @@
                 </div>
                 <div class="form-group">
                   <label for="registerPassword" class="col-form-label">密码</label>
-                  <input type="password" class="form-control" id="registerPassword" required maxlength="12"
-                         minlength="8">
+                  <input type="password" class="form-control" id="registerPassword" required maxlength="12" minlength="8">
                 </div>
                 <div class="form-group">
                   <label for="registerRepeat" class="col-form-label">确认密码</label>
@@ -65,49 +63,42 @@
 </div>
 
 
-<div class="container">
 
+<div class="container">
+  <div class="col-sm-8 poem-title"></div>
 
   <div class="row">
-    <div class="col-sm-8 poem-title"></div>
+
     <div class="col-sm-8 poem-main">
-      <s:form action="searchpoem_admin" method="post">
-        <s:textfield name="poem.title" label="诗名(模糊查询)"/>
-        <s:textfield name="poem.author.name" label="作者"/>
-        <s:textfield name="poem.author.dynasty" label="朝代"/>
-        <s:textfield name="poem.tags" label="标签"/>
-        <s:submit name="submit" value="搜索"/></p>
-      </s:form>
+      <s:if test="#session.nowuser != null">
+        <s:iterator value="#session.markPoems">
+          <div class="poem-post">
+            <h2 class="poem-post-title"><s:property value="title" /></h2>
+            <p class="poem-post-meta"><s:property value="author.name" />
+            <p><s:property value="content" /></p>
+            <s:form action="unmark" method="post">
+              <s:hidden name="poem.id" value="%{id}"></s:hidden>
+              <s:submit name="submit" value="取消收藏"></s:submit>
+            </s:form>
+          </div><!-- /.poem-post -->
+        </s:iterator>
 
+        <nav>
+          <ul class="pager">
+            <s:if test="pageNum>1">
+              <a href="recommend?pageNum=<s:property value="pageNum-1"/>">上一页</a>
+            </s:if>
 
-      <s:iterator value="poems">
-        <div class="poem-post">
-          <h2 class="poem-post-title"><s:property value="title"/></h2>
-          <p class="poem-post-meta"><s:property value="author.name"/></p>
-          <p><s:property value="content"/></p>
-          <s:form action="deletepoem" method="post">
-            <s:hidden name="poem.id" value="%{id}"></s:hidden>
-            <s:submit value="删除诗歌"/>
-          </s:form>
-          <s:form action="changepoem" method="post">
-            <s:hidden name="poem.title" value="%{title}"></s:hidden>
-            <s:submit value="修改诗歌"/>
-          </s:form>
+            ---------------------- 第 <s:property value="pageNum" /> 页 ----------------------
+            <a href="recommend?pageNum=<s:property value="pageNum+1"/>">下一页</a>
+          </ul>
+        </nav>
+      </s:if>
+      <s:else>
+        <div class="alert alert-warning" role="alert">
+          请先登录！
         </div>
-        <!-- /.poem-post -->
-      </s:iterator>
-
-      <nav>
-        <ul class="pager">
-          <s:if test="pageNum>1">
-            <a href="selectpoem?pageNum=<s:property value="pageNum-1"/>">上一页</a>
-          </s:if>
-
-          ---------------------- 第 <s:property value="pageNum"/> 页 ----------------------
-          <a href="selectpoem?pageNum=<s:property value="pageNum+1"/>">下一页</a>
-        </ul>
-      </nav>
-
+      </s:else>
     </div><!-- /.poem-main -->
 
     <div class="col-sm-3 col-sm-offset-1 poem-sidebar">
@@ -121,8 +112,12 @@
         </s:if>
         <s:else>
           <s:property value="#session.tip"/>,您已登录！
+          <s:a action="logout">注销</s:a>
         </s:else>
       </div>
+      <s:form method="post" action="admin">
+        <s:submit name="submit" value="管理员登录"/>
+      </s:form>
       <div class="sidebar-module">
         <h4>朝代</h4>
         <ol class="list-unstyled">

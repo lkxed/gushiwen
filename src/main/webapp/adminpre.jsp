@@ -17,11 +17,11 @@
 <div class="poem-masthead">
     <div class="container">
         <nav class="poem-nav">
-            <a class="poem-nav-item active" href="./poems">推荐</a>
-            <a class="poem-nav-item" href="./poemjump.action">诗文</a>
-            <a class="poem-nav-item" href="./jump.action">作者</a>
-            <a class="poem-nav-item" href="#">收藏</a>
-            <a class="poem-nav-item" href="./jumpuser.action">发表</a>
+            <a class="poem-nav-item" href="./poems">推荐</a>
+            <a class="poem-nav-item" href="./poemjump">诗文</a>
+            <a class="poem-nav-item" href="./jump">作者</a>
+            <a class="poem-nav-item" href="./bookmark">收藏</a>
+            <a class="poem-nav-item" href="./jumpuser">发表</a>
 
             <button id="registerBtn" data-toggle="modal" data-target="#registerModal">注册</button>
             <!-- 注册弹框 -->
@@ -66,13 +66,8 @@
 
 <div class="container">
 
-    <div class="poem-header">
-        <h1 class="poem-title">The Bootstrap poem</h1>
-        <p class="lead poem-description">The official example template of creating a poem with Bootstrap.</p>
-    </div>
-
     <div class="row">
-
+        <div class="col-sm-8 poem-title"></div>
         <div class="col-sm-8 poem-main">
             <s:form method="post" action="adminlogin">
                 <s:textfield name="admin.username" label="账号" maxlength="12" minlength="5"/>
@@ -98,28 +93,20 @@
                 </s:else>
             </div>
             <div class="sidebar-module">
-                <h4>Archives</h4>
+                <h4>朝代</h4>
                 <ol class="list-unstyled">
-                    <li><a href="#">March 2014</a></li>
-                    <li><a href="#">February 2014</a></li>
-                    <li><a href="#">January 2014</a></li>
-                    <li><a href="#">December 2013</a></li>
-                    <li><a href="#">November 2013</a></li>
-                    <li><a href="#">October 2013</a></li>
-                    <li><a href="#">September 2013</a></li>
-                    <li><a href="#">August 2013</a></li>
-                    <li><a href="#">July 2013</a></li>
-                    <li><a href="#">June 2013</a></li>
-                    <li><a href="#">May 2013</a></li>
-                    <li><a href="#">April 2013</a></li>
-                </ol>
-            </div>
-            <div class="sidebar-module">
-                <h4>Elsewhere</h4>
-                <ol class="list-unstyled">
-                    <li><a href="#">GitHub</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Facebook</a></li>
+                    <li><a href="dynastyAuthor?dynasty=先秦">先秦</a></li>
+                    <li><a href="dynastyAuthor?dynasty=两汉">两汉</a></li>
+                    <li><a href="dynastyAuthor?dynasty=五代">五代</a></li>
+                    <li><a href="dynastyAuthor?dynasty=魏晋">魏晋</a></li>
+                    <li><a href="dynastyAuthor?dynasty=南北朝">南北朝</a></li>
+                    <li><a href="dynastyAuthor?dynasty=隋代">隋代</a></li>
+                    <li><a href="dynastyAuthor?dynasty=唐代">唐代</a></li>
+                    <li><a href="dynastyAuthor?dynasty=宋代">宋代</a></li>
+                    <li><a href="dynastyAuthor?dynasty=金朝">金朝</a></li>
+                    <li><a href="dynastyAuthor?dynasty=元代">元代</a></li>
+                    <li><a href="dynastyAuthor?dynasty=明代">明代</a></li>
+                    <li><a href="dynastyAuthor?dynasty=清代">清代</a></li>
                 </ol>
             </div>
         </div><!-- /.poem-sidebar -->

@@ -1,7 +1,7 @@
 package cn.lkxed.dao;
 
+import cn.lkxed.po.Author;
 import cn.lkxed.po.Poem;
-import cn.lkxed.po.User;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -61,7 +61,10 @@ public class PoemDAO extends HibernateDaoSupport implements IPoemDAO {
         return super.getHibernateTemplate().find(hql);
     }
 
-
+    public List findById(String id) {
+        String hql = "from Poem where id = '"+id+"'";
+        return getHibernateTemplate().find(hql);
+    }
     @Override
     public void delete(Poem poem) {
         getHibernateTemplate().delete(poem);
@@ -73,5 +76,11 @@ public class PoemDAO extends HibernateDaoSupport implements IPoemDAO {
     @Override
     public void save(Poem poem) {
         getHibernateTemplate().save(poem);
+    }
+
+    @Override
+    public List findByAuthor(Author author) {
+        String hql = "from Poem where author.id = '" + author.getId() + "'";
+        return getHibernateTemplate().find(hql);
     }
 }

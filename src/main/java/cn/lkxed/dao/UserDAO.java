@@ -10,7 +10,13 @@ import java.util.List;
 public class UserDAO extends HibernateDaoSupport implements IUserDAO {
     @Override
     public List find(User user) {
-        return getHibernateTemplate().findByExample(user);
+        String hql = "from User where username = '"+user.getUsername()+"'";
+        return getHibernateTemplate().find(hql);
+    }
+
+    public List check(User user) {
+        String hql = "from User where username = '"+user.getUsername()+"' and password = '"+user.getPassword()+"'";
+        return getHibernateTemplate().find(hql);
     }
 
     @Override

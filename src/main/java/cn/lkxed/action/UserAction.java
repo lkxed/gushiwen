@@ -6,10 +6,20 @@ import cn.lkxed.service.UserService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.dispatcher.HttpParameters;
+import org.apache.struts2.json.annotations.JSON;
+
 import java.util.List;
+import java.util.Map;
+
 public class UserAction extends ActionSupport {
+    @JSON
+    public String getMessage() {
+        return message;
+    }
+
     private String message;
 
+    @JSON(serialize = false)
     public Poem getPoem() {
         return poem;
     }
@@ -18,8 +28,10 @@ public class UserAction extends ActionSupport {
         this.poem = poem;
     }
 
+
     private List users;
 
+    @JSON(serialize = false)
     public List getUsers() {
         return users;
     }
@@ -33,16 +45,13 @@ public class UserAction extends ActionSupport {
 
     private UserService userService;
 
+    @JSON(serialize = false)
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public void setUserService(UserService userService) {
@@ -54,10 +63,11 @@ public class UserAction extends ActionSupport {
     }
 
     public String login() {
-        HttpParameters parameters = ActionContext.getContext().getParameters();
         if (userService.login(user)) {
             return SUCCESS;
         }
+        Map<String, Object> request = (Map)ActionContext.getContext().get("request");
+        request.put("loginerror", "用户名或密码错误");
         return ERROR;
     }
 
@@ -67,12 +77,15 @@ public class UserAction extends ActionSupport {
         String password = parameters.get("password").getValue();
         String repeat = parameters.get("repeat").getValue();
         System.out.println(username);
-        if (userService.register(username, password, repeat)) {
+        int result = userService.register(username, password, repeat);
+        if (result == 0) {
             this.message = "success";
-            return SUCCESS;
+        } else if (result == 1) {
+            this.message = "existed";
+        } else {
+            this.message = "error";
         }
-        this.message = "error";
-        return ERROR;
+        return SUCCESS;
     }
 
 
@@ -95,20 +108,37 @@ public class UserAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String inlike(){
-        System.out.println("sadwqawdeqdsfc");
-        if(user.getLike()==null)
-            user.setLike(poem.getId()+',');
-        else
-            user.setLike(user.getLike()+poem.getId()+',');
-        userService.update(user);
-        return SUCCESS;
-    }
-
     public String admin()
     {
         return SUCCESS;
     }
 
+    public String mark() {
+        this.user = (User)ActionContext.getContext().getSession().get("nowuser");
+        String bookMark = user.getBookmark() == null ? "": user.getBookmark();
+        if (!bookMark.contains(poem.getId())) {
+            user.setBookmark(bookMark+poem.getId()+',');
+            userService.update(user);
+        } else {
+            Map<String, Object> request = (Map)ActionContext.getContext().get("request");
+            request.put("markwarning", "已收藏，请勿重复收藏！");
+        }
+        return SUCCESS;
+    }
+    public String unmark() {
+        this.user = (User)ActionContext.getContext().getSession().get("nowuser");
+        String bookMark = user.getBookmark() == null ? "": user.getBookmark();
+        if (bookMark.contains(poem.getId())) {
+            bookMark = bookMark.replace(poem.getId()+",","");
+            user.setBookmark(bookMark);
+            userService.update(user);
+        }
+        return SUCCESS;
+    }
 
+    public String logout() {
+        ActionContext.getContext().getSession().remove("nowuser");
+        ActionContext.getContext().getSession().remove("tip");
+        return SUCCESS;
+    }
 }

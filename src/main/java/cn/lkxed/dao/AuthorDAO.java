@@ -23,4 +23,10 @@ public class AuthorDAO extends HibernateDaoSupport implements IAuthorDAO {
     public List findByExample(Author example) {
         return getHibernateTemplate().findByExample(example);
     }
+
+    @Override
+    public List findDynastyAuthorPage(Author example, int pageNum, int pageSize) {
+        int begin = (pageNum - 1) * pageSize;
+        return getHibernateTemplate().findByExample(example, begin, pageSize);
+    }
 }

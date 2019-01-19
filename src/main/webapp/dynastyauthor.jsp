@@ -19,9 +19,9 @@
         <nav class="poem-nav">
             <a class="poem-nav-item" href="./poems">推荐</a>
             <a class="poem-nav-item" href="./poemjump">诗文</a>
-            <a class="poem-nav-item" href="./jump">作者</a>
-            <a class="poem-nav-item" href="#">收藏</a>
-            <a class="poem-nav-item active" href="./jumpuser">发表</a>
+            <a class="poem-nav-item active" href="./jump">作者</a>
+            <a class="poem-nav-item" href="./bookmark">收藏</a>
+            <a class="poem-nav-item" href="./jumpuser">发表</a>
 
             <button id="registerBtn" data-toggle="modal" data-target="#registerModal">注册</button>
             <!-- 注册弹框 -->
@@ -69,21 +69,32 @@
     <div class="row">
         <div class="col-sm-8 poem-title"></div>
         <div class="col-sm-8 poem-main">
-         <s:if test="#session.tip!=null">
-            <s:form action="poemup" method="post">
-                <s:textfield name="poem.title" label="标题" />
-                <s:textarea cols="30" rows="3" name="poem.content"  label="内容"/>
-                <s:textarea cols="30" rows="3" name="poem.translation"  label="译文"/>
-                <s:textfield name="poem.tags" label="标签"/>
-                </center>
-                <s:submit value="添加" class="btn btn-success"/>
+            <s:form action="searchauthor" method="post">
+                <s:textfield name="author.name" label="诗人名"/>
+                <s:submit name="submit" value="搜索"/></p>
             </s:form>
-         </s:if>
-            <s:else>
-                <div class="alert alert-warning" role="alert">
-                   请先登录！
-                </div>
-            </s:else>
+
+            <s:iterator value="authors">
+                <div class="poem-post">
+                    <h2 class="poem-post-title"><s:property value="name" /></h2>
+                    <p><s:property value="brief" /></p>
+                    <s:form action="authorpoem" method="POST">
+                        <s:hidden name="poem.author.id" value="%{id}" />
+                        <s:submit value="诗集" />
+                    </s:form>
+                </div><!-- /.poem-post -->
+            </s:iterator>
+
+            <nav>
+                <ul class="pager">
+                    <s:if test="pageNum>1">
+                        <a href="dynastyAuthor?dynasty=<s:property value="dynasty"/>&pageNum=<s:property value="pageNum-1"/>">上一页</a>
+                    </s:if>
+
+                    ---------------------- 第 <s:property value="pageNum" /> 页 ----------------------
+                    <a href="dynastyAuthor?dynasty=<s:property value="dynasty"/>&pageNum=<s:property value="pageNum+1"/>">下一页</a>
+                </ul>
+            </nav>
 
         </div><!-- /.poem-main -->
 
@@ -98,8 +109,8 @@
                 </s:if>
                 <s:else>
                     <s:property value="#session.tip"/>,您已登录！
+                    <s:a action="logout">注销</s:a>
                 </s:else>
-
             </div>
             <s:form method="post" action="admin">
                 <s:submit name="submit" value="管理员登录"/>

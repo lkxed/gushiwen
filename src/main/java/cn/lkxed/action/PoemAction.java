@@ -1,5 +1,7 @@
 package cn.lkxed.action;
 
+import cn.lkxed.po.Author;
+import cn.lkxed.po.User;
 import cn.lkxed.service.PoemService;
 import cn.lkxed.po.Poem;
 import com.opensymphony.xwork2.ActionContext;
@@ -7,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.dispatcher.HttpParameters;
 import org.apache.struts2.dispatcher.Parameter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PoemAction extends ActionSupport {
@@ -76,6 +79,7 @@ public class PoemAction extends ActionSupport {
             return ERROR;
         }
         this.poems = poemService.findPage(pageNum, pageSize);
+        ActionContext.getContext().getSession().put("poems", this.poems);
         return SUCCESS;
     }
 
@@ -93,6 +97,12 @@ public class PoemAction extends ActionSupport {
 
     public String searchpoem(){
         poems=poemService.findByTitle2(poem);
+        return SUCCESS;
+    }
+
+    public String getAuthorPoem() {
+        Author author = poem.getAuthor();
+        poems = poemService.findByAuthor(author);
         return SUCCESS;
     }
 
@@ -143,6 +153,18 @@ public class PoemAction extends ActionSupport {
         return SUCCESS;
     }
 
-
-
+    public String bookmark() {
+        User user = (User)ActionContext.getContext().getSession().get("nowuser");
+        if (user != null) {
+            String bookMark = user.getBookmark();
+            List markPoems = new ArrayList<Poem>();
+            for (String poemId : bookMark.split(",")) {
+                if (poemId != "")
+                    markPoems.add((Poem) poemService.findById(poemId).get(0));
+                System.out.println("size: " + markPoems.size());
+            }
+            ActionContext.getContext().getSession().put("markPoems", markPoems);
+        }
+        return SUCCESS;
+    }
 }

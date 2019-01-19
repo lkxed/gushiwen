@@ -33,4 +33,8 @@ public class AuthorService {
         example.setName(name);
         return authorDAO.findByExample(example);
     }
+
+    public List findDynastyAuthorPage(Author author, int pageNum, int pageSize) {
+        return authorDAO.findDynastyAuthorPage(author, pageNum, pageSize);
+    }
 }

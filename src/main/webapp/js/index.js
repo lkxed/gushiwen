@@ -42,10 +42,14 @@ $(function() {
        $.post('register', {username: username, password: password, repeat: repeat}, function (data) {
           if (data.message == 'success') {
               alert('注册成功');
-              $('#registerModal').toggle();
-          } else {
-              console.log(data);
+              $('#registerModal').modal('hide');
+              $(this).removeData('bs.modal');
+              $('#registerForm').get(0).reset();
+              $('span.error').remove();
+          } else if (data.message == 'existed'){
+              alert('用户名已存在');
           }
+           console.log(data);
        });
     });
 });

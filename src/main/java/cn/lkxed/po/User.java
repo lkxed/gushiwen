@@ -3,16 +3,15 @@ package cn.lkxed.po;
 public class User {
     private String username;
     private String password;
+    private String bookmark;
 
-    public String getLike() {
-        return like;
+    public String getBookmark() {
+        return bookmark;
     }
 
-    public void setLike(String like) {
-        this.like = like;
+    public void setBookmark(String bookmark) {
+        this.bookmark = bookmark;
     }
-
-    private String like;
 
     public String getUsername() {
         return username;
@@ -27,11 +26,6 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public User(String username, String password) {
-        this.username = username;
         this.password = password;
     }
 

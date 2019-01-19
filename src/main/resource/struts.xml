@@ -7,31 +7,26 @@
     <default-action-ref name="recommend"/>
     <!-- 返回 JSON 格式数据 -->
     <action name="tags-json" class="tagAction">
-      <result name="success" type="json">
-        <param name="includeProperties">tags.*</param>
-      </result>
+      <result name="success" type="json" />
     </action>
     <action name="poems-json" class="poemAction">
-      <result name="success" type="json">
-        <param name="includeProperties">poems.*</param>
-      </result>
+      <result name="success" type="json" />
     </action>
     <action name="authors-json" class="authorAction">
-      <result name="success" type="json">
-        <param name="includeProperties">authors.*</param>
-      </result>
+      <result name="success" type="json" />
     </action>
     <action name="register" class="userAction" method="register">
-      <result name="success" type="json">
-      </result>
-      <result name="error" type="json">
-      </result>
+      <result name="success" type="json" />
     </action>
     <!-- 返回 JSP 页面 -->
     <action name="poems" class="poemAction">
       <result name="success">recommend.jsp</result>
     </action>
     <action name="login" class="userAction" method="login">
+      <result name="success">recommend.jsp</result>
+      <result name="error">recommend.jsp</result>
+    </action>
+    <action name="logout" class="userAction" method="logout">
       <result name="success">recommend.jsp</result>
     </action>
     <action name="recommend" class="poemAction" method="goToPage">
@@ -59,7 +54,12 @@
     <action name="selectpoem" class="poemAction" method="goToPage">
       <result name="success">selectpoem.jsp</result>
     </action>
-
+    <action name="authorpoem" class="poemAction" method="getAuthorPoem">
+      <result name="success">authorpoem.jsp</result>
+    </action>
+    <action name="dynastyAuthor" class="authorAction" method="dynastyAuthor">
+      <result name="success">dynastyauthor.jsp</result>
+    </action>
 
     <action name="adminuser" class="userAction" method="adminuser">
       <result name="success">adminuser.jsp</result>
@@ -70,6 +70,7 @@
     <action name="adminpoem" class="poemAction" method="adminpoem">
       <result name="success">adminpoem.jsp</result>
     </action>
+
 
 
     <action name="searchpoem_admin" class="poemAction" method="searchpoem_admin">
@@ -86,8 +87,14 @@
     </action>
 
 
-    <action name="inlike" class="userAction" method="inlike">
-      <result name="success">adminpoem.jsp</result>
+    <action name="mark" class="userAction" method="mark">
+      <result name="success">recommend.jsp</result>
+    </action>
+    <action name="unmark" class="userAction" method="unmark">
+      <result name="success" type="redirectAction">bookmark</result>
+    </action>
+    <action name="bookmark" class="poemAction" method="bookmark">
+      <result name="success">bookmark.jsp</result>
     </action>
     <action name="poemup" class="poemAction" method="poemup">
       <result name="success">recommend.jsp</result>

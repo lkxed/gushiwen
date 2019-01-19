@@ -1,6 +1,7 @@
 package cn.lkxed.service;
 
 import cn.lkxed.dao.PoemDAO;
+import cn.lkxed.po.Author;
 import cn.lkxed.po.Poem;
 import cn.lkxed.po.User;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,5 +45,13 @@ public class PoemService {
 
     public void save(Poem poem) {
         poemDAO.save(poem);
+    }
+
+    public List findById(String id) {
+        return poemDAO.findById(id);
+    }
+
+    public List findByAuthor(Author author) {
+        return poemDAO.findByAuthor(author);
     }
 }

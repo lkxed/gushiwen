@@ -3,12 +3,15 @@ package cn.lkxed.service;
 import cn.lkxed.dao.UserDAO;
 import cn.lkxed.po.User;
 import org.springframework.transaction.annotation.Transactional;
+import com.opensymphony.xwork2.ActionContext;
 
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class UserService {
     private UserDAO userDAO;
+    private Map<String, Object> request, session;
 
     public UserDAO getUserDAO() {
         return userDAO;
@@ -19,10 +22,15 @@ public class UserService {
     }
 
     public boolean login(User user) {
+        ActionContext ctx = ActionContext.getContext();
+        session = (Map) ctx.getSession();
+        request = (Map) ctx.get("request");
         List userList = userDAO.find(user);
         if (userList.isEmpty()) {
             return false;
         } else {
+            session.put("nowuser",user);
+            session.put("tip",user.getUsername());
             return true;
         }
     }
@@ -55,6 +63,9 @@ public class UserService {
         } else {
             return (User)userList.get(0);
         }
+    }
+    public List findAll() {
+        return userDAO.findAll();
     }
 
     public void delete(User user) {

@@ -1,6 +1,8 @@
 package cn.lkxed.dao;
 
+import cn.lkxed.po.Poem;
 import cn.lkxed.po.User;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.util.List;
@@ -25,4 +27,6 @@ public class UserDAO extends HibernateDaoSupport implements IUserDAO {
     public void delete(User user) {
         getHibernateTemplate().delete(user);
     }
+
+    public List findAll(){return getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(User.class));}
 }

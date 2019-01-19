@@ -1,9 +1,11 @@
 package cn.lkxed.service;
 
 import cn.lkxed.dao.PoemDAO;
-
+import cn.lkxed.po.Poem;
+import cn.lkxed.po.User;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-
+@Transactional
 public class PoemService {
     private PoemDAO poemDAO;
 
@@ -25,5 +27,21 @@ public class PoemService {
 
     public List findByTitle(String title) {
         return poemDAO.findByTitle(title);
+    }
+
+    public List findByTitle2(Poem poem) {
+        return poemDAO.findBean(poem);
+    }
+
+    public void delete(Poem poem) {
+       poemDAO.delete(poem);
+    }
+
+    public void update(Poem poem) {
+        poemDAO.update(poem);
+    }
+
+    public void save(Poem poem) {
+        poemDAO.save(poem);
     }
 }

@@ -10,7 +10,15 @@ public class Poem {
   private String translation;
   private String annotation;
   private String tags;
+  private Author author;
 
+  public Author getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(Author author) {
+    this.author = author;
+  }
 
   public String getId() {
     return id;

@@ -1,6 +1,7 @@
 package cn.lkxed.dao;
 
 import cn.lkxed.po.Poem;
+import cn.lkxed.po.User;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -24,5 +25,53 @@ public class PoemDAO extends HibernateDaoSupport implements IPoemDAO {
         DetachedCriteria criteria = DetachedCriteria.forClass(Poem.class)
                 .add(Restrictions.eq("title", title));
         return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List findBean(Poem poem) {
+        int flag=0;
+        String hql="from Poem where ";
+        if(poem.getTitle()!="")
+        {
+            hql=hql+"title like '%"+poem.getTitle()+"%' ";
+            flag=1;
+        }
+        if(poem.getAuthor().getName()!="")
+        {
+            if(flag==1)
+                hql=hql+"and ";
+            hql=hql+"author.id=author_id and author.name='"+poem.getAuthor().getName()+"'";
+            flag=1;
+        }
+        if(poem.getAuthor().getDynasty()!="")
+        {
+            if(flag==1)
+                hql=hql+"and ";
+            hql=hql+"author.id=author_id and author.dynasty  like '%"+poem.getAuthor().getDynasty()+"%'";
+            flag=1;
+        }
+        if(poem.getTags()!="")
+        {
+            if(flag==1)
+                hql=hql+"and ";
+            hql=hql+"tags  like '%"+poem.getTags()+"%'";
+        }
+
+        System.out.println(hql);
+        return super.getHibernateTemplate().find(hql);
+    }
+
+
+    @Override
+    public void delete(Poem poem) {
+        getHibernateTemplate().delete(poem);
+    }
+    @Override
+    public void update(Poem poem) {
+        getHibernateTemplate().update(poem);
+    }
+    @Override
+    public void save(Poem poem) {
+        getHibernateTemplate().save(poem);
     }
 }

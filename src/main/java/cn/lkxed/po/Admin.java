@@ -1,18 +1,8 @@
 package cn.lkxed.po;
 
-public class User {
+public class Admin {
     private String username;
     private String password;
-
-    public String getLike() {
-        return like;
-    }
-
-    public void setLike(String like) {
-        this.like = like;
-    }
-
-    private String like;
 
     public String getUsername() {
         return username;
@@ -30,10 +20,9 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String password) {
+    public Admin(String username, String password) {
         this.username = username;
         this.password = password;
     }
-
-    public User() {}
+    public Admin() {}
 }

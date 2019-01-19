@@ -34,6 +34,7 @@
         <value>hbm/Poem.hbm.xml</value>
         <value>hbm/Author.hbm.xml</value>
         <value>hbm/User.hbm.xml</value>
+        <value>hbm/Admin.hbm.xml</value>
       </list>
     </property>
   </bean>
@@ -59,6 +60,9 @@
   <bean id="userDAO" class="cn.lkxed.dao.UserDAO">
     <property name="hibernateTemplate" ref="hibernateTemplate" />
   </bean>
+  <bean id="adminDAO" class="cn.lkxed.dao.AdminDAO">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
 
   <!-- Service -->
   <bean id="tagService" class="cn.lkxed.service.TagService">
@@ -72,6 +76,9 @@
   </bean>
   <bean id="userService" class="cn.lkxed.service.UserService">
     <property name="userDAO" ref="userDAO" />
+  </bean>
+  <bean id="adminService" class="cn.lkxed.service.AdminService">
+    <property name="adminDAO" ref="adminDAO" />
   </bean>
 
   <!-- Action -->
@@ -87,6 +94,9 @@
   <bean id="userAction" class="cn.lkxed.action.UserAction" scope="prototype">
     <property name="userService" ref="userService" />
   </bean>
+  <bean id="adminAction" class="cn.lkxed.action.AdminAction" scope="prototype">
+    <property name="adminService" ref="adminService" />
+  </bean>
 
   <!-- transactionManager 事务管理器 -->
   <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
@@ -94,5 +104,5 @@
   </bean>
 
   <!-- 事务管理注解驱动 -->
-  <tx:annotation-driven />
+  <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

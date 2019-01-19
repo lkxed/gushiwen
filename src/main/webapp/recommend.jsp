@@ -17,16 +17,12 @@
 <div class="poem-masthead">
   <div class="container">
     <nav class="poem-nav">
-      <a class="poem-nav-item active" href="/">推荐</a>
-      <a class="poem-nav-item" href="#">诗文</a>
-      <a class="poem-nav-item" href="#">作者</a>
+      <a class="poem-nav-item active" href="./poems">推荐</a>
+      <a class="poem-nav-item" href="./poemjump.action">诗文</a>
+      <a class="poem-nav-item" href="./jump.action">作者</a>
       <a class="poem-nav-item" href="#">收藏</a>
-      <a class="poem-nav-item" href="#">发表</a>
-      <form method="post" action="login" id="loginForm">
-        <input type="text" placeholder="用户名" name="username" maxlength="12" minlength="5" id="loginUsername"/>
-        <input type="password" placeholder="密码" name="password" maxlength="12" minlength="8" id="login_password"/>
-        <input type="submit" value="登录"/>
-      </form>
+      <a class="poem-nav-item" href="./jumpuser.action">发表</a>
+
       <button id="registerBtn" data-toggle="modal" data-target="#registerModal">注册</button>
       <!-- 注册弹框 -->
       <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalTitle" aria-hidden="true">
@@ -82,8 +78,16 @@
       <s:iterator value="poems">
         <div class="poem-post">
           <h2 class="poem-post-title"><s:property value="title" /></h2>
-          <p class="poem-post-meta"><s:property value="authorId" /><a href="#">Jacob</a></p>
+          <p class="poem-post-meta"><s:property value="author.name" />
           <p><s:property value="content" /></p>
+        <s:if test="#session.tip!=null">
+          <s:form action="inlike" method="post">
+            <s:hidden name="poem.id" value="%{id}"></s:hidden>
+            <s:submit name="submit" value="收藏"></s:submit>
+          </s:form>
+        </s:if>
+
+
         </div><!-- /.poem-post -->
       </s:iterator>
 
@@ -102,10 +106,20 @@
 
     <div class="col-sm-3 col-sm-offset-1 poem-sidebar">
       <div class="sidebar-module sidebar-module-inset">
-        <h4>About</h4>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum.
-          Aenean lacinia bibendum nulla sed consectetur.</p>
+        <s:if test="#session.tip==null">
+          <s:form method="post" action="login">
+            <s:textfield name="user.username" label="账号" maxlength="12" minlength="5"/>
+            <s:textfield name="user.password" label="密码" maxlength="12" minlength="8"/>
+            <s:submit name="submit" value="登录"/>
+          </s:form>
+        </s:if>
+        <s:else>
+          <s:property value="#session.tip"/>,您已登录！
+        </s:else>
       </div>
+      <s:form method="post" action="admin">
+        <s:submit name="submit" value="管理员登录"/>
+      </s:form>
       <div class="sidebar-module">
         <h4>Archives</h4>
         <ol class="list-unstyled">

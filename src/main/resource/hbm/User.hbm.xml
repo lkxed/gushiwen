@@ -11,5 +11,8 @@
     <property name="password" type="string">
       <column name="password" length="20" />
     </property>
+    <property name="like" type="string">
+      <column name="like" />
+    </property>
   </class>
 </hibernate-mapping>

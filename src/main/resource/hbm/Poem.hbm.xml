@@ -11,11 +11,11 @@
     <property name="title" type="string">
       <column name="title" length="50"/>
     </property>
-    <property name="authorId" type="string">
-      <column name="author_id" length="32"/>
-    </property>
     <property name="content" type="string">
       <column name="content"/>
+    </property>
+    <property name="authorId" type="string">
+      <column name="author_id"/>
     </property>
     <property name="translation" type="string">
       <column name="translation"/>
@@ -26,5 +26,9 @@
     <property name="tags" type="string">
       <column name="tags" length="100"/>
     </property>
+  <many-to-one name="author" class="cn.lkxed.po.Author" insert="false" update="false"  lazy="false"
+               fetch="select">
+    <column name="author_id"/>
+  </many-to-one>
   </class>
 </hibernate-mapping>

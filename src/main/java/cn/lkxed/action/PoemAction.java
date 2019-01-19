@@ -1,6 +1,7 @@
 package cn.lkxed.action;
 
 import cn.lkxed.service.PoemService;
+import cn.lkxed.po.Poem;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.dispatcher.HttpParameters;
@@ -24,8 +25,12 @@ public class PoemAction extends ActionSupport {
     private int pageNum = 1;
     private int pageSize = 5;
     private List poems;
+    private Poem poem;
 
     private PoemService poemService;
+
+    public Poem getPoem() {return poem;}
+    public void setPoem(Poem poem){this.poem=poem;}
 
     public List getPoems() {
         return poems;
@@ -73,4 +78,71 @@ public class PoemAction extends ActionSupport {
         this.poems = poemService.findPage(pageNum, pageSize);
         return SUCCESS;
     }
+
+    public String jump() {
+        try {
+            HttpParameters parameters = ActionContext.getContext().getParameters();
+            this.poems = poemService.findPage(1, 10);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+
+    public String searchpoem(){
+        poems=poemService.findByTitle2(poem);
+        return SUCCESS;
+    }
+
+
+    public String adminpoem()
+    {
+        try {
+            HttpParameters parameters = ActionContext.getContext().getParameters();
+            this.poems = poemService.findPage(1, 10);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+    public String searchpoem_admin(){
+        poems=poemService.findByTitle2(poem);
+        return SUCCESS;
+    }
+
+    public String deletepoem(){
+        System.out.println(poem.getId());
+        poemService.delete(poem);
+        this.poems = poemService.findPage(1, 10);
+        return SUCCESS;
+    }
+    public String changepoem(){
+        poem=(Poem)poemService.findByTitle(poem.getTitle()).get(0);
+        return SUCCESS;
+    }
+
+    public String poemupdate(){
+        System.out.println(poem.getId());
+        poemService.update(poem);
+        this.poems = poemService.findPage(1, 10);
+        return SUCCESS;
+    }
+
+    public String poemup(){
+        poem.setId(poem.getTitle());
+        poemService.save(poem);
+        this.poems = poemService.findPage(1, 10);
+        return SUCCESS;
+    }
+
+    public String jumpuser(){
+        return SUCCESS;
+    }
+
+
+
 }

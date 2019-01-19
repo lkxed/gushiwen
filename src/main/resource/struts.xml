@@ -37,5 +37,72 @@
     <action name="recommend" class="poemAction" method="goToPage">
       <result name="success">recommend.jsp</result>
     </action>
+
+
+    <action name="jump" class="authorAction" method="jump">
+      <result name="success">selectauthor.jsp</result>
+    </action>
+    <action name="searchauthor" class="authorAction" method="searchauthor">
+      <result name="success">searchauthor.jsp</result>
+    </action>
+    <action name="selectauthor" class="authorAction" method="goToPage">
+      <result name="success">selectauthor.jsp</result>
+    </action>
+
+
+    <action name="poemjump" class="poemAction" method="jump">
+      <result name="success">selectpoem.jsp</result>
+    </action>
+    <action name="searchpoem" class="poemAction" method="searchpoem">
+      <result name="success">selectpoem.jsp</result>
+    </action>
+    <action name="selectpoem" class="poemAction" method="goToPage">
+      <result name="success">selectpoem.jsp</result>
+    </action>
+
+
+    <action name="adminuser" class="userAction" method="adminuser">
+      <result name="success">adminuser.jsp</result>
+    </action>
+    <action name="deleteuser" class="userAction" method="deleteuser">
+      <result name="success">adminuser.jsp</result>
+    </action>
+    <action name="adminpoem" class="poemAction" method="adminpoem">
+      <result name="success">adminpoem.jsp</result>
+    </action>
+
+
+    <action name="searchpoem_admin" class="poemAction" method="searchpoem_admin">
+      <result name="success">adminpoem.jsp</result>
+    </action>
+    <action name="deletepoem" class="poemAction" method="deletepoem">
+      <result name="success">adminpoem.jsp</result>
+    </action>
+    <action name="changepoem" class="poemAction" method="changepoem">
+      <result name="success">changepoem.jsp</result>
+    </action>
+    <action name="poemupdate" class="poemAction" method="poemupdate">
+      <result name="success">adminpoem.jsp</result>
+    </action>
+
+
+    <action name="inlike" class="userAction" method="inlike">
+      <result name="success">adminpoem.jsp</result>
+    </action>
+    <action name="poemup" class="poemAction" method="poemup">
+      <result name="success">recommend.jsp</result>
+    </action>
+    <action name="jumpuser" class="poemAction" method="jumpuser">
+      <result name="success">userup.jsp</result>
+    </action>
+
+
+    <action name="admin" class="userAction" method="admin">
+      <result name="success">adminpre.jsp</result>
+    </action>
+    <action name="adminlogin" class="adminAction" method="adminlogin">
+      <result name="success">adminlogin.jsp</result>
+    </action>
+
   </package>
 </struts>

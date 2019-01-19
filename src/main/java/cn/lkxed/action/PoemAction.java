@@ -159,7 +159,7 @@ public class PoemAction extends ActionSupport {
             String bookMark = user.getBookmark();
             List markPoems = new ArrayList<Poem>();
             for (String poemId : bookMark.split(",")) {
-                if (poemId != "")
+                if (poemId != "" && poemService.findById(poemId).size() == 1)
                     markPoems.add((Poem) poemService.findById(poemId).get(0));
                 System.out.println("size: " + markPoems.size());
             }

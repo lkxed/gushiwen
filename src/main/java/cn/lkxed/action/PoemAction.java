@@ -157,10 +157,11 @@ public class PoemAction extends ActionSupport {
         User user = (User)ActionContext.getContext().getSession().get("nowuser");
         if (user != null) {
             String bookMark = user.getBookmark();
-            List markPoems = new ArrayList<Poem>();
-            if (markPoems.size() == 0) {
+            if (bookMark == null || bookMark.trim().length()== 0) {
+                ActionContext.getContext().getSession().remove("markPoems");
                 return SUCCESS;
             }
+            List markPoems = new ArrayList<Poem>();
             for (String poemId : bookMark.split(",")) {
                 if (poemId != "" && poemService.findById(poemId).size() == 1)
                     markPoems.add((Poem) poemService.findById(poemId).get(0));

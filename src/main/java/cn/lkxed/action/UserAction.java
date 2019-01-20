@@ -132,6 +132,7 @@ public class UserAction extends ActionSupport {
             bookMark = bookMark.replace(poem.getId()+",","");
             user.setBookmark(bookMark);
             userService.update(user);
+            ActionContext.getContext().getSession().put("nowuser", user);
         }
         return SUCCESS;
     }

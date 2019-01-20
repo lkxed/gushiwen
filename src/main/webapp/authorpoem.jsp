@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <title>Title</title>
+  <title>古诗文分享网</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,8 +78,11 @@
       <s:iterator value="poems">
         <div class="poem-post">
           <h2 class="poem-post-title"><s:property value="title" /></h2>
+          <br />
           <p class="poem-post-meta"><s:property value="author.name" />
+            <br />
           <p><s:property value="content" /></p>
+          <br />
         <s:if test="#session.tip!=null">
           <s:form action="mark" method="post">
             <s:hidden name="poem.id" value="%{id}"></s:hidden>

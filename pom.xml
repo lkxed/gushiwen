@@ -114,6 +114,7 @@
       <artifactId>struts2-spring-plugin</artifactId>
       <version>${struts2.version}</version>
     </dependency>
+
     <!-- Servlet API -->
     <dependency>
       <groupId>javax.servlet</groupId>

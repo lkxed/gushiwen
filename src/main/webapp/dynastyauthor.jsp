@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>Title</title>
+    <title>古诗文分享网</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,11 +73,18 @@
                 <s:textfield name="author.name" label="诗人名"/>
                 <s:submit name="submit" value="搜索"/></p>
             </s:form>
+            <br />
 
             <s:iterator value="authors">
                 <div class="poem-post">
                     <h2 class="poem-post-title"><s:property value="name" /></h2>
-                    <p><s:property value="brief" /></p>
+                    <br />
+                    <s:if test="portraitUrl != null && portraitUrl != \"None\"">
+                        <img src="<s:property value="portraitUrl" />" alt="作者肖像" />
+                    </s:if>
+                    <br />
+                    <p><span><s:property value="brief" /></span></p>
+                    <br />
                     <s:form action="authorpoem" method="POST">
                         <s:hidden name="poem.author.id" value="%{id}" />
                         <s:submit value="诗集" />

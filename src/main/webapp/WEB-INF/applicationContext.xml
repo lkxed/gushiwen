@@ -25,7 +25,6 @@
         <prop key="hibernate.show_sql">true</prop>
         <prop key="hibernate.format_sql">true</prop>
         <prop key="hbm2ddl.auto">update</prop>
-        <prop key="hibernate.connection.autocommit">true</prop>
       </props>
     </property>
     <property name="mappingResources">

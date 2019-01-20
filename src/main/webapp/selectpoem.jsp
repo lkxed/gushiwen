@@ -17,8 +17,8 @@
 <div class="poem-masthead">
     <div class="container">
         <nav class="poem-nav">
-            <a class="poem-nav-item active" href="./poems">推荐</a>
-            <a class="poem-nav-item" href="./poemjump">诗文</a>
+            <a class="poem-nav-item" href="./poems">推荐</a>
+            <a class="poem-nav-item active" href="./poemjump">诗文</a>
             <a class="poem-nav-item" href="./jump">作者</a>
             <a class="poem-nav-item" href="./bookmark">收藏</a>
             <a class="poem-nav-item" href="./jumpuser">发表</a>

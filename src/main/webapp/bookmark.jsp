@@ -70,7 +70,7 @@
   <div class="row">
 
     <div class="col-sm-8 poem-main">
-      <s:if test="#session.nowuser != null">
+      <s:if test="#session.nowuser != null && #session.markPoems != null">
         <s:iterator value="#session.markPoems">
           <div class="poem-post">
             <h2 class="poem-post-title"><s:property value="title" /></h2>
@@ -94,6 +94,11 @@
           </ul>
         </nav>
       </s:if>
+      <s:elseif test="#session.markPoems == null">
+        <div class="alert alert-warning" role="alert">
+          您没有收藏任何古诗文！
+        </div>
+      </s:elseif>
       <s:else>
         <div class="alert alert-warning" role="alert">
           请先登录！
@@ -106,7 +111,7 @@
         <s:if test="#session.tip==null">
           <s:form method="post" action="login">
             <s:textfield name="user.username" label="账号" maxlength="12" minlength="5"/>
-            <s:textfield name="user.password" label="密码" maxlength="12" minlength="8"/>
+            <s:textfield name="user.password" label="密码" maxlength="12" minlength="8" type="password"/>
             <s:submit name="submit" value="登录"/>
           </s:form>
         </s:if>

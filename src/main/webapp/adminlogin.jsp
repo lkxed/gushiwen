@@ -81,7 +81,7 @@
                 <s:if test="#session.tip==null">
                     <s:form method="post" action="login">
                         <s:textfield name="user.username" label="账号" maxlength="12" minlength="5"/>
-                        <s:textfield name="user.password" label="密码" maxlength="12" minlength="8"/>
+                        <s:textfield name="user.password" label="密码" maxlength="12" minlength="8" type="password"/>
                         <s:submit name="submit" value="登录"/>
                     </s:form>
                 </s:if>
